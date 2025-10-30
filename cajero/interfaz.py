@@ -127,13 +127,28 @@ class SimulacionCajas:
         for i, texto in enumerate(textos):
             x1 = inicio + i * separacion
             y1, y2 = 120, 380
+
+            # 💡 Color diferente para la caja Express
+            if texto == "Express":
+                color_fondo = "#A9B7FF" 
+                borde = "#29009B"         
+            else:
+                color_fondo = colores[i % len(colores)]
+                borde = "#CBD5E1"
+
             self.canvas.create_rectangle(x1, y1, x1+150, y2,
-                                         fill=colores[i % len(colores)],
-                                         outline="#CBD5E1", width=2)
-            self.canvas.create_text(x1+75, 100, text=texto, font=("Segoe UI", 12, "bold"), fill="#1E293B")
+                                        fill=color_fondo,
+                                        outline=borde, width=2)
+
+            self.canvas.create_text(x1+75, 100, text=texto,
+                                    font=("Segoe UI", 12, "bold"),
+                                    fill="#1E293B")
+
             self.posiciones.append(x1+75)
             personas = self.num_normales[i] if i < n_cajas else self.num_express
-            self.canvas.create_text(x1+75, 390, text=f"{personas} personas", font=("Segoe UI", 10), fill="#475569")
+            self.canvas.create_text(x1+75, 390, text=f"{personas} personas",
+                                    font=("Segoe UI", 10), fill="#475569")
+
 
         # Crear filas de clientes
         self.filas = []
